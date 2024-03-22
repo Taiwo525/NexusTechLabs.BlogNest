@@ -2,6 +2,7 @@
 using BlogNest.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlogNest.WebExtensions
 {
@@ -32,11 +33,11 @@ namespace BlogNest.WebExtensions
                 options.Password.RequireUppercase = true;
             });
 
-            services.AddDefaultIdentity<User>(options =>
+            services.AddIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<BlogDbContext>();
 
             services.ConfigureApplicationCookie(options =>
             {
