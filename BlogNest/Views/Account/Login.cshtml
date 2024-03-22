@@ -1,0 +1,28 @@
+﻿@model BlogNest.Models.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validatiiion-summary="ModelOnly" class="text-danger"></div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="RememberMe">
+            <input asp-for="RememberMe" />
+            @Html.DisplayNameFor(m=>m.RememberMe)
+        </label>
+    </div>
+    <button type="submit">Login</button>
+</form>
