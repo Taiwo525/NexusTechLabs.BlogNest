@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BlogNest.Models.Post>
+
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>List of BlogPost - Admin Functionality</h1>
+    </div>
+</div>
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Heading
+                    </th>
+                    <th>
+                        Tags
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Heading
+                        </td>
+                        <td>
+                            <div class="d-flex">
+                                @foreach (var tag in item.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.Name</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a class="link-danger" onclick="return window.confirm('Are you sure?')"
+                               asp-controller="AdminPost" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No post found!</p>
+    }
+
+</div>
+

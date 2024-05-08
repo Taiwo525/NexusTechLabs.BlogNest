@@ -1,4 +1,5 @@
-﻿using BlogNest.Models;
+﻿using BlogNest.Core.Repositories;
+using BlogNest.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace BlogNest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPostRepo repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPostRepo repo)
         {
             _logger = logger;
+            this.repo = repo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await repo.GetAllPostsAsync();
+            return View(result);
         }
 
         public IActionResult Privacy()

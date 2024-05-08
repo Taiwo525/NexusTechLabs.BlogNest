@@ -1,8 +1,8 @@
-﻿namespace BlogNest.Models.Enums
-{
-    public enum SubscriptionStatus
-    {
-        Active,
-        Inactive
-    }
-}
+﻿//namespace BlogNest.Models.Enums
+//{
+//    public enum SubscriptionStatus
+//    {
+//        Active,
+//        Inactive
+//    }
+//}

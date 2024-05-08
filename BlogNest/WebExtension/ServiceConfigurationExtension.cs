@@ -1,21 +1,25 @@
-﻿using BlogNest.Data;
-using BlogNest.Models;
+﻿using BlogNest.Core.Implementations;
+using BlogNest.Core.Repositories;
+using BlogNest.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BlogNest.WebExtensions
 {
-    public static class DbConfigurationExtension
+    public static class ServiceConfigurationExtension
     {
-        public static void ConfigureSeervices(this IServiceCollection services, IConfiguration configuration)
+        public static void ServiceConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IPostRepo, PostRepo>();
+            services.AddScoped<ITagRepo, TagRepo>();
+            services.AddScoped<IImageRepo, CloudinaryImageRepo>();
+
             services.AddDbContext<BlogDbContext>(options =>
                  options.UseSqlServer(configuration.GetConnectionString("con")));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<BlogDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<BlogDbContext>()
+            //    .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -33,11 +37,11 @@ namespace BlogNest.WebExtensions
                 options.Password.RequireUppercase = true;
             });
 
-            services.AddIdentity<User>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = true;
-            })
-            .AddEntityFrameworkStores<BlogDbContext>();
+            //services.AddIdentity<User>(options =>
+            //{
+            //    options.SignIn.RequireConfirmedAccount = true;
+            //})
+            //.AddEntityFrameworkStores<BlogDbContext>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -46,7 +50,6 @@ namespace BlogNest.WebExtensions
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.IsEssential = true;
             });
-
         }
     }
 }

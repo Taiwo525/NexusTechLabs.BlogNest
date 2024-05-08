@@ -1,0 +1,40 @@
+﻿@model BlogNest.Models.ViewModels.EditTagRequest
+
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h2>Edit Tag - Admin Functionality</h2>
+    </div>
+</div>
+<div class="container py-5">
+    @if (Model != null)
+    {
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" type="text" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" type="text" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DisplayName" class="control-label"></label>
+                <input asp-for="DisplayName" type="text" class="form-control" />
+                <span asp-validation-for="DisplayName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-outline-secondary">Update</button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <p>No tag found!</p>
+    }
+
+</div>

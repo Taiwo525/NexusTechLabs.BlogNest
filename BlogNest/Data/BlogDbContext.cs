@@ -1,4 +1,135 @@
-﻿using BlogNest.Models;
+﻿//using BlogNest.Models;
+//using BlogNest.Models.Enums;
+//using Microsoft.AspNetCore.Identity;
+//using Microsoft.EntityFrameworkCore;
+
+//namespace BlogNest.Data
+//{
+//    public class BlogDbContext : DbContext
+//    {
+//        public BlogDbContext(DbContextOptions<BlogDbContext> options) : base(options)
+//        {
+
+//        }
+//        public DbSet<User> Users { get; set; }
+//        public DbSet<Post> Posts { get; set; }
+//        public DbSet<Tag> Tags { get; set; }
+//        public DbSet<Category> Categories { get; set; }
+//        public DbSet<Comment> Comments { get; set; }
+//        public DbSet<Notification> Notifications { get; set; }
+//        public DbSet<Like> Likes { get; set; }
+//        public DbSet<Subscription> Subscriptions { get; set; }
+//        public DbSet<Role> Roles { get; set; }
+//        public DbSet<PostCategory> PostCategories { get; set; }
+//        public DbSet<PostTag> PostTags { get; set; }
+//        public DbSet<UserRole> UserRoles { get; set; }
+//        protected override void OnModelCreating(ModelBuilder modelBuilder)
+//        {
+//            // Configure IdentityUserRole<string> as a keyless entity type
+//            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+//            modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+//            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+
+//            //Configure One User to Many Relationships
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Posts)
+//                .WithOne(i => i.User)
+//                .HasForeignKey(i => i.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
+
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Notifications)
+//                .WithOne(n => n.User)
+//                .HasForeignKey(n => n.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
+
+//            //modelBuilder.Entity<User>()
+//            //    .HasMany(a => a.Comments)
+//            //    .WithOne(r => r.User)
+//            //    .HasForeignKey(r => r.UserId);
+
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Subscriptions)
+//                .WithOne(s => s.User)
+//                .HasForeignKey(s => s.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
+
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(t => t.User)
+//                .HasForeignKey(t => t.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
+
+//            //Configure Post to comments One to Many Relationships
+//            modelBuilder.Entity<Post>()
+//                .HasMany(a => a.Comments)
+//                .WithOne(i => i.Post)
+//                .HasForeignKey(i => i.PostId);
+
+//            //Configure Post to likes One to Many Relationships
+//            modelBuilder.Entity<Post>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(i => i.Post)
+//                .HasForeignKey(i => i.PostId);
+
+//            //Configure comment to likes One to Many Relationships
+//            modelBuilder.Entity<Comment>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(i => i.Comment)
+//                .HasForeignKey(i => i.CommentId);
+
+//            modelBuilder.Entity<Comment>()
+//                .HasOne(c => c.User)
+//                .WithMany(u => u.Comments)
+//                .HasForeignKey(c => c.UserId)
+//                .OnDelete(DeleteBehavior.Restrict); // Specify NO ACTION on delete
+
+
+//            //Configure User to role many to Many Relationships
+//            modelBuilder.Entity<UserRole>()
+//              .HasKey(ur => new { ur.UserId, ur.RoleId });
+//            modelBuilder.Entity<UserRole>()
+//                .HasOne(pc => pc.User)
+//                .WithMany(p => p.UserRoles)
+//                .HasForeignKey(pc => pc.UserId);
+
+//            modelBuilder.Entity<UserRole>()
+//                .HasOne(pc => pc.Role)
+//                .WithMany(c => c.UserRoles)
+//                .HasForeignKey(pc => pc.RoleId);
+
+//            modelBuilder.Entity<PostTag>()
+//                .HasKey(pt => new { pt.PostId, pt.TagId });
+//            modelBuilder.Entity<PostTag>()
+//                .HasOne(pc => pc.Post)
+//                .WithMany(p => p.PostTags)
+//                .HasForeignKey(pc => pc.PostId);
+
+//            modelBuilder.Entity<PostTag>()
+//                .HasOne(pc => pc.Tag)
+//                .WithMany(c => c.PostTags)
+//                .HasForeignKey(pc => pc.TagId);
+
+//            ////Configure post to category many to Many Relationships
+//            //modelBuilder.Entity<Post>()
+//            modelBuilder.Entity<PostCategory>()
+//           .HasKey(pc => new { pc.PostId, pc.CategoryId });
+
+//            modelBuilder.Entity<PostCategory>()
+//                .HasOne(pc => pc.Post)
+//                .WithMany(p => p.PostCategories)
+//                .HasForeignKey(pc => pc.PostId);
+
+//            modelBuilder.Entity<PostCategory>()
+//                .HasOne(pc => pc.Category)
+//                .WithMany(c => c.PostCategories)
+//                .HasForeignKey(pc => pc.CategoryId);
+//        }
+//    }
+//}
+
+using BlogNest.Models;
+//using BlogNest.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,106 +141,119 @@ namespace BlogNest.Data
         {
 
         }
-        public DbSet<User> Users { get; set; }
+
+        // DbSet properties for your entities
+        //public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Like> Likes { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Role> Roles { get; set; }
+//        public DbSet<Category> Categories { get; set; }
+//        public DbSet<Comment> Comments { get; set; }
+//        public DbSet<Notification> Notifications { get; set; }
+//        public DbSet<Like> Likes { get; set; }
+//        public DbSet<Subscription> Subscriptions { get; set; }
+//        public DbSet<Role> Roles { get; set; }
+//        public DbSet<PostCategory> PostCategories { get; set; }
+//        public DbSet<PostTag> PostTags { get; set; }
+//        public DbSet<UserRole> UserRoles { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Configure IdentityUserRole<string> as a keyless entity type
-            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
-            modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
-            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+//        protected override void OnModelCreating(ModelBuilder modelBuilder)
+//        {
+//            // Configure IdentityUserRole<string> as a keyless entity type
+//            modelBuilder.Entity<IdentityUserRole<string>>().HasNoKey();
+//            modelBuilder.Entity<IdentityUserLogin<string>>().HasNoKey();
+//            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
 
-            // Configure One AppUser to Zero or One Relationships
-            //    modelBuilder.Entity<User>()
-            //        .HasOne(a => a.Health)
-            //        .WithOne(h => h.User)
-            //        .HasForeignKey<Health>(h => h.AppUserId);
+//            // Configure relationships
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Posts)
+//                .WithOne(i => i.User)
+//                .HasForeignKey(i => i.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasOne(a => a.Setting)
-            //        .WithOne(s => s.AppUser)
-            //        .HasForeignKey<Setting>(s => s.AppUserId);
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Notifications)
+//                .WithOne(n => n.User)
+//                .HasForeignKey(n => n.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasOne(a => a.Wallet)
-            //        .WithOne(w => w.AppUser)
-            //        .HasForeignKey<Wallet>(w => w.AppUserId);
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Subscriptions)
+//                .WithOne(s => s.User)
+//                .HasForeignKey(s => s.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
 
-            //    //Configure One AppUser to Many Relationships
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasMany(a => a.Invities)
-            //        .WithOne(i => i.AppUser)
-            //        .HasForeignKey(i => i.AppUserId);
+//            modelBuilder.Entity<User>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(t => t.User)
+//                .HasForeignKey(t => t.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasMany(a => a.Notifications)
-            //        .WithOne(n => n.AppUser)
-            //        .HasForeignKey(n => n.AppUserId);
+//            modelBuilder.Entity<Comment>()
+//                .HasOne(c => c.User)
+//                .WithMany(u => u.Comments)
+//                .HasForeignKey(c => c.UserId)
+//                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasMany(a => a.Reviews)
-            //        .WithOne(r => r.AppUser)
-            //        .HasForeignKey(r => r.AppUserId);
+//            // Configure Post to comments One-to-Many Relationships
+//            modelBuilder.Entity<Post>()
+//                .HasMany(a => a.Comments)
+//                .WithOne(i => i.Post)
+//                .HasForeignKey(i => i.PostId);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasMany(a => a.Subscriptions)
-            //        .WithOne(s => s.AppUser)
-            //        .HasForeignKey(s => s.AppUserId);
+//            // Configure Post to likes One-to-Many Relationships
+//            modelBuilder.Entity<Post>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(i => i.Post)
+//                .HasForeignKey(i => i.PostId);
 
-            //    modelBuilder.Entity<AppUser>()
-            //        .HasMany(a => a.Transactions)
-            //        .WithOne(t => t.AppUser)
-            //        .HasForeignKey(t => t.AppUserId);
+//            // Configure comment to likes One-to-Many Relationships
+//            modelBuilder.Entity<Comment>()
+//                .HasMany(a => a.Likes)
+//                .WithOne(i => i.Comment)
+//                .HasForeignKey(i => i.CommentId);
 
-            //    // Configure One to One Health Relationship
-            //    modelBuilder.Entity<Health>()
-            //        .HasOne(h => h.AppUser)
-            //        .WithOne(a => a.Health)
-            //        .HasForeignKey<Health>(h => h.AppUserId);
+//            // Configure User to role many-to-many Relationships
+//            modelBuilder.Entity<UserRole>()
+//                .HasKey(ur => new { ur.UserId, ur.RoleId });
 
-            //    // Configure One to Zero or One Wallet Relationship
-            //    modelBuilder.Entity<Wallet>()
-            //        .HasOne(w => w.AppUser)
-            //        .WithOne(a => a.Wallet)
-            //        .HasForeignKey<Wallet>(w => w.AppUserId);
+//            modelBuilder.Entity<UserRole>()
+//                .HasOne(pc => pc.User)
+//                .WithMany(p => p.UserRoles)
+//                .HasForeignKey(pc => pc.UserId);
 
-            //    // Configure One Wallet to Many Relationships
-            //    //modelBuilder.Entity<Wallet>()
-            //    //    .HasOne(w => w.AppUser);
+//            modelBuilder.Entity<UserRole>()
+//                .HasOne(pc => pc.Role)
+//                .WithMany(c => c.UserRoles)
+//                .HasForeignKey(pc => pc.RoleId);
 
+//            // Configure PostTag entity (you've left this incomplete)
+//            modelBuilder.Entity<PostTag>()
+//                .HasKey(pt => new { pt.PostId, pt.TagId });
+//            modelBuilder.Entity<PostTag>()
+//                .HasOne(pc => pc.Post)
+//                .WithMany(p => p.PostTags)
+//                .HasForeignKey(pc => pc.PostId);
 
-            //    // Configure One to Many Transaction Relationship
-            //    //modelBuilder.Entity<Transaction>()
-            //    //    .HasOne(t => t.AppUser)
-            //    //    .WithMany(a => a.Transactions)
-            //    //    .HasForeignKey(t => t.AppUserId);
+//            modelBuilder.Entity<PostTag>()
+//                .HasOne(pc => pc.Tag)
+//                .WithMany(c => c.PostTags)
+//                .HasForeignKey(pc => pc.TagId);
 
-            //    // Configure One to Many Subscription Relationship
-            //    modelBuilder.Entity<Subscription>()
-            //        .HasOne(s => s.User)
-            //        .WithMany(a => a.Subscriptions)
-            //        .HasForeignKey(s => s.UserId);
+//            ////Configure post to category many to Many Relationships
+//            //modelBuilder.Entity<Post>()
+//            modelBuilder.Entity<PostCategory>()
+//           .HasKey(pc => new { pc.PostId, pc.CategoryId });
 
-            //    // Configure One to Many Reviews Relationships
-            //    modelBuilder.Entity<Review>()
-            //        .HasOne(r => r.AppUser)
-            //        .WithMany(a => a.Reviews)
-            //        .HasForeignKey(r => r.AppUserId);
+//            modelBuilder.Entity<PostCategory>()
+//                .HasOne(pc => pc.Post)
+//                .WithMany(p => p.PostCategories)
+//                .HasForeignKey(pc => pc.PostId);
 
-            //    // Configure One to Many Notification Relationship
-            //    modelBuilder.Entity<Notification>()
-            //        .HasOne(n => n.User)
-            //        .WithMany(a => a.Notifications)
-            //        .HasForeignKey(n => n.UserId);
-            
-        }
-    }
+//            modelBuilder.Entity<PostCategory>()
+//                .HasOne(pc => pc.Category)
+//                .WithMany(c => c.PostCategories)
+//                .HasForeignKey(pc => pc.CategoryId);
+//        }
+   }
 }
+

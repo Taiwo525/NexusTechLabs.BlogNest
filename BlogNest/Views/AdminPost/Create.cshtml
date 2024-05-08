@@ -1,0 +1,113 @@
+﻿@model BlogNest.Models.ViewModels.AddPostRequest
+
+
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Add New BlogPost - Admin Functionality</h1>
+    </div>
+</div>
+<hr />
+<div class="container py-5">
+    
+        <form asp-action="Create">
+        
+            <div class="form-group mb-3">
+                <label asp-for="Heading" class="control-label"></label>
+                <input asp-for="Heading" class="form-control" />
+                <span asp-validation-for="Heading" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PageTitle" class="control-label"></label>
+                <input asp-for="PageTitle" class="form-control" />
+                <span asp-validation-for="PageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" id="content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Featured Image Upload</label>
+                <input type="file" id="feturedImageUpload" class="form-control" />
+                <img src="" id="featuredImageDisplay" style="display:none;width: 300px;" />
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="FeaturedImageUrl" class="control-label"></label>
+                <input asp-for="FeaturedImageUrl" id="featuredImageUrl" class="form-control" />
+                <span asp-validation-for="FeaturedImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="UrlHandle" class="control-label"></label>
+                <input asp-for="UrlHandle" class="form-control"></input>
+                <span asp-validation-for="UrlHandle" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="PublishedDate" class="control-label"></label>
+                <input asp-for="PublishedDate" type="date" class="form-control"></input>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control"></input>
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="visible">
+                <label class="form-check-label">
+                    Visible
+                </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label">Tags</label>
+                <select class="form-select"
+                    asp-for="SelectedTags" asp-items="@Model.Tags"> </select>
+            </div>
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    
+</div>
+
+<div>
+    <a asp-controller="AdminPost" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var editor = new FroalaEditor('#content', {
+            imageUploadUrl: '/api/image'
+        });
+
+        const featuredUploadElement = document.getElementById('feturedImageUpload');
+        const featuredImageUrlElement = document.getElementById('featuredImageUrl');
+        const featuredImageDisplayElement = document.getElementById('featuredImageDisplay');
+
+        async function uploadFeaturedImage(e){
+            console.log(e.target.files[0]);
+
+            let data = new FormData();
+            data.append('file', e.target.files[0]);
+
+            await fetch('/api/image',{
+                method: 'POST', 
+                headers: {
+                    'Accept': '*/*',
+                },
+                body: data
+            }).then(response => response.json()).then(result => {
+                featuredImageUrlElement.value = result.link; 
+                featuredImageDisplayElement.src = result.link;
+                featuredImageDisplayElement.style.display = 'block'; 
+            });
+        }
+
+        featuredUploadElement.addEventListener('change', uploadFeaturedImage);
+    </script>
+}

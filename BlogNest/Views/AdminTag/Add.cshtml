@@ -1,0 +1,27 @@
+﻿@model BlogNest.Models.ViewModels.AddTagRequest
+
+
+<div class="bg-secondary bg-opacity-10 py-2">
+    <div class="container">
+        <h1>Add New Tag - Admin Functionality</h1>
+    </div>
+</div>
+<div class="container py-5">
+    <form asp-action="Add" method="post">
+        <div class="mb-3">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="DisplayName" class="control-label"></label>
+            <input asp-for="DisplayName" type="text" class="form-control" placeholder="Display Name" />
+            <span asp-validation-for="DisplayName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-outline-secondary">Submit</button>
+        </div>
+    </form>
+</div>
