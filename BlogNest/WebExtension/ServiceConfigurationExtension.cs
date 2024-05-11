@@ -15,11 +15,14 @@ namespace BlogNest.WebExtensions
             services.AddScoped<IImageRepo, CloudinaryImageRepo>();
 
             services.AddDbContext<BlogDbContext>(options =>
-                 options.UseSqlServer(configuration.GetConnectionString("con")));
+                  options.UseSqlServer(configuration.GetConnectionString("con")));
 
-            //services.AddIdentity<User, IdentityRole>()
-            //    .AddEntityFrameworkStores<BlogDbContext>()
-            //    .AddDefaultTokenProviders();
+            services.AddDbContext<AuthDbContext>(options =>
+                 options.UseSqlServer(configuration.GetConnectionString("authcon")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AuthDbContext>()
+                .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -35,6 +38,7 @@ namespace BlogNest.WebExtensions
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
+                options.Password.RequiredUniqueChars = 1;
             });
 
             //services.AddIdentity<User>(options =>

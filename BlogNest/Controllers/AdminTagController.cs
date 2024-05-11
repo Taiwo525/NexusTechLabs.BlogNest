@@ -2,12 +2,14 @@
 using BlogNest.Data;
 using BlogNest.Models;
 using BlogNest.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
 namespace BlogNest.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminTagController : Controller
     {
         private readonly ITagRepo _blog;

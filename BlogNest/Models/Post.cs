@@ -22,7 +22,7 @@ namespace BlogNest.Models
         //public int UserId { get; set; }
         //public User User { get; set; }
         //public List<Comment> Comments { get; set; }
-        //public List<Like> Likes { get; set; }
+        public List<Like> Likes { get; set; }
         public ICollection<Tag> Tags { get; set; }
         //public ICollection<Category> Categories { get; set; }
         //public ICollection<PostTag> PostTags { get; set; }

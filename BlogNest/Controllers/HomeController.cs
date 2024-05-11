@@ -1,5 +1,6 @@
 ﻿using BlogNest.Core.Repositories;
 using BlogNest.Models;
+using BlogNest.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,16 +10,26 @@ namespace BlogNest.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPostRepo repo;
+        private readonly ITagRepo tag;
 
-        public HomeController(ILogger<HomeController> logger, IPostRepo repo)
+        public HomeController(ILogger<HomeController> logger, IPostRepo repo, ITagRepo tag)
         {
             _logger = logger;
             this.repo = repo;
+            this.tag = tag;
         }
 
         public async Task<IActionResult> Index()
         {
-            var result = await repo.GetAllPostsAsync();
+            var po = await repo.GetAllPostsAsync();
+            var ta = await tag.GetAllAsync();
+
+            var result = new HomeModel
+            {
+                Posts = po,
+                Tags = ta
+            };
+
             return View(result);
         }
 

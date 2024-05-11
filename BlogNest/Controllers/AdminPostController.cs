@@ -1,12 +1,14 @@
 ﻿using BlogNest.Core.Repositories;
 using BlogNest.Models;
 using BlogNest.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
 
 namespace BlogNest.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminPostController : Controller
     {
         private readonly IPostRepo _postRepository;
