@@ -1,4 +1,4 @@
-﻿@model BlogNest.Models.Post
+﻿@model BlogNest.Models.ViewModels.DetailsViewModel
 
 @{
     ViewData["Title"] = Model.PageTitle;
@@ -13,6 +13,10 @@
                 <div class="d-flex justify-content-between mb-3">
                     <span class="text-secondary">@Model.Author</span>
                     <span class="text-secondary">@Model.PublishedDate.ToShortDateString()</span>
+                </div>
+
+                <div class="mb-3">
+                    <span>@Model.TotalLike</span> Likes
                 </div>
                 <div class="mb-3 d-flex">
                     @foreach (var tag in Model.Tags)

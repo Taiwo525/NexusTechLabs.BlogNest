@@ -13,6 +13,7 @@ namespace BlogNest.WebExtensions
             services.AddScoped<IPostRepo, PostRepo>();
             services.AddScoped<ITagRepo, TagRepo>();
             services.AddScoped<IImageRepo, CloudinaryImageRepo>();
+            services.AddScoped<ILikeRepo, LikeRepo>();
 
             services.AddDbContext<BlogDbContext>(options =>
                   options.UseSqlServer(configuration.GetConnectionString("con")));
